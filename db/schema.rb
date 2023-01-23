@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_220508) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_221655) do
+  create_table "locations", force: :cascade do |t|
+    t.text "description"
+    t.decimal "lat", precision: 8, scale: 2
+    t.decimal "lng", precision: 8, scale: 2
+    t.integer "weather_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["weather_id"], name: "index_locations_on_weather_id"
+  end
+
   create_table "weathers", force: :cascade do |t|
     t.text "description"
     t.text "measurements", default: "--- []\n"
@@ -18,4 +28,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_220508) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "locations", "weathers"
 end
