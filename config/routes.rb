@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "weathers#index"
-  
+
   resources :weathers
 end
