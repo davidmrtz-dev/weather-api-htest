@@ -1,4 +1,8 @@
 class WeathersController < ApplicationController
+  def index
+    render json: { data: Weather.all }, status: :ok
+  end
+
   def create
     weather = Weather.new(weather_params)
      if weather.save!

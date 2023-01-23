@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Weathers", type: :request do
+  describe 'GET /weathers' do
+    it 'return the weather in ascengind order' do
+      get '/weathers'
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   describe 'POST /weathers' do
     it 'creates a Weather object with nested attr for Locations' do
       post '/weathers', params: {
