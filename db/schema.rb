@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_221655) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_010456) do
+  create_table "customers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.text "description"
     t.decimal "lat", precision: 8, scale: 2
@@ -21,6 +31,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_221655) do
     t.index ["weather_id"], name: "index_locations_on_weather_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "employee_id", null: false
+    t.integer "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["employee_id"], name: "index_orders_on_employee_id"
+  end
+
   create_table "weathers", force: :cascade do |t|
     t.text "description"
     t.text "measurements", default: "--- []\n"
@@ -29,4 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_221655) do
   end
 
   add_foreign_key "locations", "weathers"
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "employees"
 end
